@@ -21,3 +21,4 @@ def test_get_league(league):
    my_league = get_league(league_id=LEAGUE_ID, year=2018, espn_s2=ESPN_S2, swid=SWID)
    assert my_league.league_id == league.league_id
    assert my_league.year == league.year
+
