@@ -51,3 +51,37 @@ def get_teams(league: League) -> list:
         all_teams.append(team_info)
     return all_teams
 
+def get_players(league: League) -> list:
+    '''
+    docstring placeholder
+    '''
+    all_players = list()
+    for team in league.teams:
+        for player in team.roster:
+            player_info = vars(player)
+            player_info['year'] = league.year
+            player_info['team_id'] = team.team_id
+            player_info['team_name'] = team.team_name
+            all_players.append(player_info)
+    return all_players
+
+def get_box_scores(league: League) -> list:
+    '''
+    docstring placeholder
+    '''
+    all_box_scores = list()
+    if league.year < 2019:
+        print('Box scores not available for this year')
+        pass
+    else:
+        for i in range(len(league.settings.matchup_periods)):
+            box_scores_lst = league.box_scores(week=i)
+            for box_score in box_scores_lst:
+                box_score_info = vars(box_score)
+                box_score_info['year'] = league.year
+                box_score_info['home_team_id'] = box_score_info['home_team'].team_id
+                box_score_info['home_team_name'] = box_score_info['home_team'].team_name
+                box_score_info['away_team_id'] = box_score_info['away_team'].team_id
+                box_score_info['away_team_name'] = box_score_info['away_team'].team_name
+                all_box_scores.append(box_score_info)
+        return all_box_scores
